@@ -19,7 +19,7 @@ type Vehicle struct {
 	FilmURLs             []filmURL   `json:"films"`
 	Created              string      `json:"created"`
 	Edited               string      `json:"edited"`
-	Url                  string      `json:"url"`
+	URL                  string      `json:"url"`
 }
 
 type vehicleURL string

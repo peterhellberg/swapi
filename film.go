@@ -5,7 +5,7 @@ import "fmt"
 // A Film is an single film.
 type Film struct {
 	Title         string         `json:"title"`
-	EpisodeId     int            `json:"episode_id"`
+	EpisodeID     int            `json:"episode_id"`
 	OpeningCrawl  string         `json:"opening_crawl"`
 	Director      string         `json:"director"`
 	Producer      string         `json:"producer"`
@@ -20,7 +20,6 @@ type Film struct {
 }
 
 type filmURL string
-type planetURL string
 type characterURL string
 
 // Film retrieves the film with the given id
