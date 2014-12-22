@@ -2,6 +2,7 @@ package swapi
 
 import "fmt"
 
+// A Planet is a large mass, planet or planetoid in the Star Wars Universe, at the time of 0 ABY.
 type Planet struct {
 	Name           string        `json:"name"`
 	RotationPeriod string        `json:"rotation_period"`
@@ -22,6 +23,7 @@ type Planet struct {
 type planetURL string
 type residentURL string
 
+// Planet retrieves the planet with the given id
 func (c *Client) Planet(id int) (Planet, error) {
 	req, err := c.NewRequest(fmt.Sprintf("planets/%d", id))
 	if err != nil {

@@ -2,6 +2,7 @@ package swapi
 
 import "fmt"
 
+// A Film is an single film.
 type Film struct {
 	Title         string         `json:"title"`
 	EpisodeId     int            `json:"episode_id"`
@@ -22,6 +23,7 @@ type filmURL string
 type planetURL string
 type characterURL string
 
+// Film retrieves the film with the given id
 func (c *Client) Film(id int) (Film, error) {
 	req, err := c.NewRequest(fmt.Sprintf("films/%d", id))
 	if err != nil {

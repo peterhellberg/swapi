@@ -2,6 +2,7 @@ package swapi
 
 import "fmt"
 
+// A Species is a type of person or character within the Star Wars Universe.
 type Species struct {
 	Name            string      `json:"name"`
 	Classification  string      `json:"classification"`
@@ -22,6 +23,7 @@ type Species struct {
 
 type speciesURL string
 
+// Species retrieves the species with the given id
 func (c *Client) Species(id int) (Species, error) {
 	req, err := c.NewRequest(fmt.Sprintf("species/%d", id))
 	if err != nil {

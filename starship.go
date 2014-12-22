@@ -2,6 +2,7 @@ package swapi
 
 import "fmt"
 
+// A Starship is a single transport craft that has hyperdrive capability.
 type Starship struct {
 	Name                 string      `json:"name"`
 	Model                string      `json:"model"`
@@ -25,6 +26,7 @@ type Starship struct {
 
 type starshipURL string
 
+// Starship retrieves the starship with the given id
 func (c *Client) Starship(id int) (Starship, error) {
 	req, err := c.NewRequest(fmt.Sprintf("starships/%d", id))
 	if err != nil {

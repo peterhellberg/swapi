@@ -2,6 +2,7 @@ package swapi
 
 import "fmt"
 
+// A Person is an individual person or character within the Star Wars universe.
 type Person struct {
 	Name         string        `json:"name"`
 	Height       string        `json:"height"`
@@ -23,6 +24,7 @@ type Person struct {
 
 type personURL string
 
+// Person retrieves the person with the given id
 func (c *Client) Person(id int) (Person, error) {
 	req, err := c.NewRequest(fmt.Sprintf("people/%d", id))
 	if err != nil {

@@ -2,6 +2,7 @@ package swapi
 
 import "fmt"
 
+// A Vehicle is a single transport craft that does not have hyperdrive capability.
 type Vehicle struct {
 	Name                 string      `json:"name"`
 	Model                string      `json:"model"`
@@ -23,6 +24,7 @@ type Vehicle struct {
 
 type vehicleURL string
 
+// Vehicle retrieves the vehicle with the given id
 func (c *Client) Vehicle(id int) (Vehicle, error) {
 	req, err := c.NewRequest(fmt.Sprintf("vehicles/%d", id))
 	if err != nil {
