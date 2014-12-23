@@ -14,16 +14,7 @@ func main() {
 	c := swapi.DefaultClient
 
 	if len(os.Args) < 2 {
-		fmt.Println(strings.Join([]string{
-			"Commands:",
-			"film     [id]",
-			"person   [id]",
-			"planet   [id]",
-			"species  [id]",
-			"starship [id]",
-			"vehicle  [id]",
-		}, "\n\t"))
-
+		usage()
 		return
 	}
 
@@ -46,6 +37,18 @@ func main() {
 	case "vehicle":
 		dump(c.Vehicle(id))
 	}
+}
+
+func usage() {
+	fmt.Println(strings.Join([]string{
+		"Commands:",
+		"film     [id]",
+		"person   [id]",
+		"planet   [id]",
+		"species  [id]",
+		"starship [id]",
+		"vehicle  [id]",
+	}, "\n\t"))
 }
 
 func dump(data interface{}, err error) {
