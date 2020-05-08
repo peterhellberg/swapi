@@ -7,48 +7,53 @@ import (
 	"net/url"
 )
 
+const (
+	defaultBaseURLScheme = "https"
+	defaultBaseURLHost   = "swapi.dev"
+	defaultBasePath      = "/api/"
+	defaultUserAgent     = "swapi.go"
+)
+
 // DefaultClient is the default SWAPI client
-var DefaultClient = NewClient(nil)
+var DefaultClient = NewClient()
 
 // A Client communicates with SWAPI
 type Client struct {
-	// BaseURL is the base url for SWAPI
-	BaseURL *url.URL
+	// baseURL is the base url for SWAPI
+	baseURL *url.URL
 
-	// BasePath is the base path for the endpoints
-	BasePath string
+	// basePath is the base path for the endpoints
+	basePath string
 
 	// User agent used for HTTP requests to SWAPI
-	UserAgent string
+	userAgent string
 
 	// HTTP client used to communicate with the SWAPI
 	httpClient *http.Client
 }
 
 // NewClient returns a new SWAPI client.
-// If httpClient is nil, http.DefaultClient is used.
-func NewClient(httpClient *http.Client) *Client {
-	if httpClient == nil {
-		cloned := *http.DefaultClient
-		httpClient = &cloned
+func NewClient(options ...Option) *Client {
+	c := &Client{
+		baseURL: &url.URL{
+			Scheme: defaultBaseURLScheme,
+			Host:   defaultBaseURLHost,
+		},
+		basePath:   defaultBasePath,
+		userAgent:  defaultUserAgent,
+		httpClient: http.DefaultClient,
 	}
 
-	c := &Client{
-		BaseURL: &url.URL{
-			Scheme: Env("SWAPI_BASE_URL_SCHEME", "http"),
-			Host:   Env("SWAPI_BASE_URL_HOST", "swapi.co"),
-		},
-		BasePath:   Env("SWAPI_BASE_PATH", "/api/"),
-		UserAgent:  Env("SWAPI_USER_AGENT", "swapi.go"),
-		httpClient: httpClient,
+	for _, option := range options {
+		option(c)
 	}
 
 	return c
 }
 
-// NewRequest creates an API request.
-func (c *Client) NewRequest(s string) (*http.Request, error) {
-	rel, err := url.Parse(c.BasePath + s)
+// newRequest creates an API request.
+func (c *Client) newRequest(s string) (*http.Request, error) {
+	rel, err := url.Parse(c.basePath + s)
 	if err != nil {
 		return nil, err
 	}
@@ -58,25 +63,22 @@ func (c *Client) NewRequest(s string) (*http.Request, error) {
 
 	rel.RawQuery = q.Encode()
 
-	u := c.BaseURL.ResolveReference(rel)
-
-	if EnvBool("SWAPI_VERBOSE", false) {
-		fmt.Println("swapi: GET", u.String())
-	}
+	u := c.baseURL.ResolveReference(rel)
 
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return nil, err
 	}
 
-	req.Header.Add("User-Agent", c.UserAgent)
+	req.Header.Add("User-Agent", c.userAgent)
+
 	return req, nil
 }
 
-// Do sends an API request and returns the API response. The API response is
+// do sends an API request and returns the API response. The API response is
 // decoded and stored in the value pointed to by v, or returned as an error if
 // an API error has occurred.
-func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
+func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	// Make sure to close the connection after replying to this request
 	req.Close = true
 
@@ -84,7 +86,6 @@ func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	defer resp.Body.Close()
 
 	if v != nil {

@@ -1,4 +1,4 @@
-A [SWAPI](http://swapi.co/) client written in Go
+A [SWAPI](http://swapi.dev) client written in Go
 ================================================
 
 [![Build Status](https://travis-ci.org/peterhellberg/swapi.svg?branch=master)](https://travis-ci.org/peterhellberg/swapi)
@@ -67,33 +67,35 @@ $ swapi planet 1
   "surface_water": "1",
   "population": "200000",
   "residents": [
-    "http://swapi.co/api/people/1/",
-    "http://swapi.co/api/people/2/",
-    "http://swapi.co/api/people/4/",
-    "http://swapi.co/api/people/6/",
-    "http://swapi.co/api/people/7/",
-    "http://swapi.co/api/people/8/",
-    "http://swapi.co/api/people/9/",
-    "http://swapi.co/api/people/11/",
-    "http://swapi.co/api/people/43/",
-    "http://swapi.co/api/people/62/"
+    "http://swapi.dev/api/people/1/",
+    "http://swapi.dev/api/people/2/",
+    "http://swapi.dev/api/people/4/",
+    "http://swapi.dev/api/people/6/",
+    "http://swapi.dev/api/people/7/",
+    "http://swapi.dev/api/people/8/",
+    "http://swapi.dev/api/people/9/",
+    "http://swapi.dev/api/people/11/",
+    "http://swapi.dev/api/people/43/",
+    "http://swapi.dev/api/people/62/"
   ],
   "films": [
-    "http://swapi.co/api/films/1/",
-    "http://swapi.co/api/films/3/",
-    "http://swapi.co/api/films/4/",
-    "http://swapi.co/api/films/5/",
-    "http://swapi.co/api/films/6/"
+    "http://swapi.dev/api/films/1/",
+    "http://swapi.dev/api/films/3/",
+    "http://swapi.dev/api/films/4/",
+    "http://swapi.dev/api/films/5/",
+    "http://swapi.dev/api/films/6/"
   ],
   "created": "2014-12-09T13:50:49.641000Z",
   "edited": "2014-12-21T20:48:04.175778Z",
-  "url": "http://swapi.co/api/planets/1/"
+  "url": "http://swapi.dev/api/planets/1/"
 }
 ```
 
+<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="30%" height="300">
+
 ## License (MIT)
 
-*Copyright (C) 2014 Peter Hellberg*
+Copyright (c) 2014-2020 [Peter Hellberg](https://c7.se)
 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the "Software"),
