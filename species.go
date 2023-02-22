@@ -1,6 +1,9 @@
 package swapi
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // A Species is a type of person or character within the Star Wars Universe.
 type Species struct {
@@ -35,4 +38,8 @@ func (c *Client) Species(id int) (Species, error) {
 	}
 
 	return species, nil
+}
+
+func (c *Client) AllSpecies(ctx context.Context) ([]Species, error) {
+	return nil, nil
 }

@@ -1,6 +1,9 @@
 package swapi
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // A Person is an individual person or character within the Star Wars universe.
 type Person struct {
@@ -36,4 +39,8 @@ func (c *Client) Person(id int) (Person, error) {
 	}
 
 	return person, nil
+}
+
+func (c *Client) AllPeople(ctx context.Context) ([]Person, error) {
+	return nil, nil
 }

@@ -1,6 +1,9 @@
 package swapi
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // A Vehicle is a single transport craft that does not have hyperdrive capability.
 type Vehicle struct {
@@ -36,4 +39,8 @@ func (c *Client) Vehicle(id int) (Vehicle, error) {
 	}
 
 	return vehicle, nil
+}
+
+func (c *Client) AllVehicles(ctx context.Context) ([]Vehicle, error) {
+	return nil, nil
 }

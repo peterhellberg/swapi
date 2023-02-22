@@ -1,6 +1,9 @@
 package swapi
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // A Planet is a large mass, planet or planetoid in the Star Wars Universe, at the time of 0 ABY.
 type Planet struct {
@@ -34,4 +37,8 @@ func (c *Client) Planet(id int) (Planet, error) {
 	}
 
 	return planet, nil
+}
+
+func (c *Client) AllPlanets(ctx context.Context) ([]Planet, error) {
+	return nil, nil
 }

@@ -1,6 +1,9 @@
 package swapi
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // A Starship is a single transport craft that has hyperdrive capability.
 type Starship struct {
@@ -38,4 +41,8 @@ func (c *Client) Starship(id int) (Starship, error) {
 	}
 
 	return starship, nil
+}
+
+func (c *Client) AllStarships(ctx context.Context) ([]Starship, error) {
+	return nil, nil
 }

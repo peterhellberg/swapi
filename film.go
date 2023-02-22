@@ -1,6 +1,9 @@
 package swapi
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // A Film is an single film.
 type Film struct {
@@ -33,4 +36,8 @@ func (c *Client) Film(id int) (Film, error) {
 	}
 
 	return film, nil
+}
+
+func (c *Client) AllFilms(ctx context.Context) ([]Film, error) {
+	return nil, nil
 }

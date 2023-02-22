@@ -51,6 +51,18 @@ func NewClient(options ...Option) *Client {
 	return c
 }
 
+// getRequest creates a GET request based on the provided rawurl
+func (c *Client) getRequest(rawurl string) (*http.Request, error) {
+	req, err := http.NewRequest("GET", rawurl, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("User-Agent", c.userAgent)
+
+	return req, nil
+}
+
 // newRequest creates an API request.
 func (c *Client) newRequest(s string) (*http.Request, error) {
 	rel, err := url.Parse(c.basePath + s)
@@ -63,16 +75,9 @@ func (c *Client) newRequest(s string) (*http.Request, error) {
 
 	rel.RawQuery = q.Encode()
 
-	u := c.baseURL.ResolveReference(rel)
+	rawurl := c.baseURL.ResolveReference(rel).String()
 
-	req, err := http.NewRequest("GET", u.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("User-Agent", c.userAgent)
-
-	return req, nil
+	return c.getRequest(rawurl)
 }
 
 // do sends an API request and returns the API response. The API response is
