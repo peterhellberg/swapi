@@ -47,12 +47,19 @@ go install github.com/peterhellberg/swapi/cmd/swapi@latest
 
 ```bash
 Commands:
-  film     [id]
-  person   [id]
-  planet   [id]
-  species  [id]
-  starship [id]
-  vehicle  [id]
+	film     [id]
+	person   [id]
+	planet   [id]
+	species  [id]
+	starship [id]
+	vehicle  [id]
+	films
+	people
+	planets
+	films
+	species
+	vehicles
+	starships
 ```
 
 ```json
