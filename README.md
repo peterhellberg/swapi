@@ -39,7 +39,7 @@ func main() {
 ### Installation
 
 ```bash
-go get github.com/peterhellberg/swapi/cmd/swapi
+go install github.com/peterhellberg/swapi/cmd/swapi@latest
 ```
 
 ### Usage
@@ -95,7 +95,7 @@ $ swapi planet 1
 
 ## License (MIT)
 
-Copyright (c) 2014-2020 [Peter Hellberg](https://c7.se)
+Copyright (c) 2014-2023 [Peter Hellberg](https://c7.se)
 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the "Software"),
