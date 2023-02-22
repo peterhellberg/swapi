@@ -13,6 +13,9 @@ import (
 )
 
 func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
 	c := swapi.DefaultClient
 
 	if len(os.Args) < 2 {
@@ -30,22 +33,19 @@ func main() {
 
 		switch command {
 		case "film":
-			dump(c.Film(id))
+			dump(c.Film(ctx, id))
 		case "person":
-			dump(c.Person(id))
+			dump(c.Person(ctx, id))
 		case "planet":
-			dump(c.Planet(id))
+			dump(c.Planet(ctx, id))
 		case "species":
-			dump(c.Species(id))
+			dump(c.Species(ctx, id))
 		case "starship":
-			dump(c.Starship(id))
+			dump(c.Starship(ctx, id))
 		case "vehicle":
-			dump(c.Vehicle(id))
+			dump(c.Vehicle(ctx, id))
 		}
 	} else {
-		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-		defer cancel()
-
 		switch command {
 		case "people":
 			dump(c.AllPeople(ctx))

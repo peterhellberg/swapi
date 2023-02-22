@@ -23,8 +23,8 @@ type Film struct {
 }
 
 // Film retrieves the film with the given id
-func (c *Client) Film(id int) (Film, error) {
-	req, err := c.newRequest(fmt.Sprintf("films/%d", id))
+func (c *Client) Film(ctx context.Context, id int) (Film, error) {
+	req, err := c.newRequest(ctx, fmt.Sprintf("films/%d", id))
 	if err != nil {
 		return Film{}, err
 	}

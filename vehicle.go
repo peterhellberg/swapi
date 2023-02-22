@@ -26,8 +26,8 @@ type Vehicle struct {
 }
 
 // Vehicle retrieves the vehicle with the given id
-func (c *Client) Vehicle(id int) (Vehicle, error) {
-	req, err := c.newRequest(fmt.Sprintf("vehicles/%d", id))
+func (c *Client) Vehicle(ctx context.Context, id int) (Vehicle, error) {
+	req, err := c.newRequest(ctx, fmt.Sprintf("vehicles/%d", id))
 	if err != nil {
 		return Vehicle{}, err
 	}

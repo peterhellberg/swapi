@@ -26,8 +26,8 @@ type Person struct {
 }
 
 // Person retrieves the person with the given id
-func (c *Client) Person(id int) (Person, error) {
-	req, err := c.newRequest(fmt.Sprintf("people/%d", id))
+func (c *Client) Person(ctx context.Context, id int) (Person, error) {
+	req, err := c.newRequest(ctx, fmt.Sprintf("people/%d", id))
 	if err != nil {
 		return Person{}, err
 	}

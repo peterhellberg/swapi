@@ -28,8 +28,8 @@ type Starship struct {
 }
 
 // Starship retrieves the starship with the given id
-func (c *Client) Starship(id int) (Starship, error) {
-	req, err := c.newRequest(fmt.Sprintf("starships/%d", id))
+func (c *Client) Starship(ctx context.Context, id int) (Starship, error) {
+	req, err := c.newRequest(ctx, fmt.Sprintf("starships/%d", id))
 	if err != nil {
 		return Starship{}, err
 	}

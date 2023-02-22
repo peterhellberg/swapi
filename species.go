@@ -25,8 +25,8 @@ type Species struct {
 }
 
 // Species retrieves the species with the given id
-func (c *Client) Species(id int) (Species, error) {
-	req, err := c.newRequest(fmt.Sprintf("species/%d", id))
+func (c *Client) Species(ctx context.Context, id int) (Species, error) {
+	req, err := c.newRequest(ctx, fmt.Sprintf("species/%d", id))
 	if err != nil {
 		return Species{}, err
 	}

@@ -24,8 +24,8 @@ type Planet struct {
 }
 
 // Planet retrieves the planet with the given id
-func (c *Client) Planet(id int) (Planet, error) {
-	req, err := c.newRequest(fmt.Sprintf("planets/%d", id))
+func (c *Client) Planet(ctx context.Context, id int) (Planet, error) {
+	req, err := c.newRequest(ctx, fmt.Sprintf("planets/%d", id))
 	if err != nil {
 		return Planet{}, err
 	}
