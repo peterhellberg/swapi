@@ -20,6 +20,7 @@ go get -u github.com/peterhellberg/swapi
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/peterhellberg/swapi"
@@ -28,7 +29,7 @@ import (
 func main() {
 	c := swapi.DefaultClient
 
-	if atst, err := c.Vehicle(19); err == nil {
+	if atst, err := c.Vehicle(context.Background(), 19); err == nil {
 		fmt.Println("name: ", atst.Name)
 		fmt.Println("model:", atst.Model)
 	}
