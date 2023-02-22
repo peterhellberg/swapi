@@ -1,6 +1,7 @@
 package swapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -18,9 +19,11 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestClientNewRequest(t *testing.T) {
+	ctx := context.Background()
+
 	c := NewClient()
 
-	r, err := c.newRequest("test")
+	r, err := c.newRequest(ctx, "test")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -42,9 +45,11 @@ func TestClientDo(t *testing.T) {
 	ts := httptest.NewServer(hf)
 	defer ts.Close()
 
+	ctx := context.Background()
+
 	c := NewClient(BaseURL(ts.URL))
 
-	r, err := c.newRequest("test")
+	r, err := c.newRequest(ctx, "test")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
