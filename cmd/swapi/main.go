@@ -84,6 +84,12 @@ func usage() {
 
 func dump(data interface{}, err error) {
 	if err != nil {
+		enc := json.NewEncoder(os.Stderr)
+		enc.SetIndent("", "  ")
+		enc.Encode(map[string]string{
+			"error": err.Error(),
+		})
+
 		return
 	}
 
