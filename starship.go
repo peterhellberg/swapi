@@ -44,5 +44,31 @@ func (c *Client) Starship(ctx context.Context, id int) (Starship, error) {
 }
 
 func (c *Client) AllStarships(ctx context.Context) ([]Starship, error) {
-	return nil, nil
+	var starships []Starship
+
+	req, err := c.newRequest(ctx, "starships/")
+	if err != nil {
+		return nil, err
+	}
+
+	for {
+		var list List[Starship]
+
+		if _, err = c.do(req, &list); err != nil {
+			return nil, err
+		}
+
+		starships = append(starships, list.Results...)
+
+		if list.Next == nil {
+			break
+		}
+
+		req, err = c.getRequest(ctx, *list.Next)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return starships, nil
 }

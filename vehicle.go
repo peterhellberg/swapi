@@ -42,5 +42,31 @@ func (c *Client) Vehicle(ctx context.Context, id int) (Vehicle, error) {
 }
 
 func (c *Client) AllVehicles(ctx context.Context) ([]Vehicle, error) {
-	return nil, nil
+	var vehicles []Vehicle
+
+	req, err := c.newRequest(ctx, "vehicles/")
+	if err != nil {
+		return nil, err
+	}
+
+	for {
+		var list List[Vehicle]
+
+		if _, err = c.do(req, &list); err != nil {
+			return nil, err
+		}
+
+		vehicles = append(vehicles, list.Results...)
+
+		if list.Next == nil {
+			break
+		}
+
+		req, err = c.getRequest(ctx, *list.Next)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return vehicles, nil
 }

@@ -1,7 +1,7 @@
 package swapi
 
 type Entity interface {
-	Person | Planet | Species | Starship | Vehicle
+	Film | Person | Planet | Species | Starship | Vehicle
 }
 
 type List[E Entity] struct {

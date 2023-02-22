@@ -41,5 +41,31 @@ func (c *Client) Species(ctx context.Context, id int) (Species, error) {
 }
 
 func (c *Client) AllSpecies(ctx context.Context) ([]Species, error) {
-	return nil, nil
+	var species []Species
+
+	req, err := c.newRequest(ctx, "species/")
+	if err != nil {
+		return nil, err
+	}
+
+	for {
+		var list List[Species]
+
+		if _, err = c.do(req, &list); err != nil {
+			return nil, err
+		}
+
+		species = append(species, list.Results...)
+
+		if list.Next == nil {
+			break
+		}
+
+		req, err = c.getRequest(ctx, *list.Next)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return species, nil
 }

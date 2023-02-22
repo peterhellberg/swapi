@@ -40,5 +40,31 @@ func (c *Client) Planet(ctx context.Context, id int) (Planet, error) {
 }
 
 func (c *Client) AllPlanets(ctx context.Context) ([]Planet, error) {
-	return nil, nil
+	var planets []Planet
+
+	req, err := c.newRequest(ctx, "planets/")
+	if err != nil {
+		return nil, err
+	}
+
+	for {
+		var list List[Planet]
+
+		if _, err = c.do(req, &list); err != nil {
+			return nil, err
+		}
+
+		planets = append(planets, list.Results...)
+
+		if list.Next == nil {
+			break
+		}
+
+		req, err = c.getRequest(ctx, *list.Next)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return planets, nil
 }

@@ -42,5 +42,31 @@ func (c *Client) Person(ctx context.Context, id int) (Person, error) {
 }
 
 func (c *Client) AllPeople(ctx context.Context) ([]Person, error) {
-	return nil, nil
+	var people []Person
+
+	req, err := c.newRequest(ctx, "people/")
+	if err != nil {
+		return nil, err
+	}
+
+	for {
+		var list List[Person]
+
+		if _, err = c.do(req, &list); err != nil {
+			return nil, err
+		}
+
+		people = append(people, list.Results...)
+
+		if list.Next == nil {
+			break
+		}
+
+		req, err = c.getRequest(ctx, *list.Next)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return people, nil
 }

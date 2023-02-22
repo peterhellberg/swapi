@@ -39,5 +39,31 @@ func (c *Client) Film(ctx context.Context, id int) (Film, error) {
 }
 
 func (c *Client) AllFilms(ctx context.Context) ([]Film, error) {
-	return nil, nil
+	var films []Film
+
+	req, err := c.newRequest(ctx, "films/")
+	if err != nil {
+		return nil, err
+	}
+
+	for {
+		var list List[Film]
+
+		if _, err = c.do(req, &list); err != nil {
+			return nil, err
+		}
+
+		films = append(films, list.Results...)
+
+		if list.Next == nil {
+			break
+		}
+
+		req, err = c.getRequest(ctx, *list.Next)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return films, nil
 }
